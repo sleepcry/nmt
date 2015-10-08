@@ -2,3 +2,4 @@
 *.out
 *.pkl
 *.txt
+model_lstm.npz
