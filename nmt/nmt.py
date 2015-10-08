@@ -23,6 +23,7 @@ import iwslt14zhen
 import openmt15zhen
 import trans_enhi
 import stan
+import mydata
 
 profile = False
 
@@ -32,6 +33,7 @@ datasets = {'wmt14enfr': (wmt14enfr.load_data, wmt14enfr.prepare_data),
             'openmt15zhen': (openmt15zhen.load_data, openmt15zhen.prepare_data),
             'trans_enhi': (trans_enhi.load_data, trans_enhi.prepare_data),
             'stan': (stan.load_data, stan.prepare_data),
+            'mydata': (mydata.load_data, mydata.prepare_data),
             }
 
 def get_dataset(name):
@@ -1708,13 +1710,14 @@ def train(dim_word=100, # word vector dimensionality
         n_samples = 0
 
         train.start()
-        for x, y in train:
+        #for x, y in train:
+        for x, x_mask, y, y_mask in train:
             n_samples += len(x)
             uidx += 1
             use_noise.set_value(1.)
 
-            x, x_mask, y, y_mask = prepare_data(x, y, maxlen=maxlen, 
-                                                n_words_src=n_words_src, n_words=n_words)
+            #x, x_mask, y, y_mask = prepare_data(x, y, maxlen=maxlen, 
+            #                                    n_words_src=n_words_src, n_words=n_words)
 
             if x == None:
                 print 'Minibatch with zero sample under length ', maxlen
